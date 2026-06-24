@@ -17,7 +17,7 @@ data:
         proxy_pass http://$upstream;
       }
       location /swagger-ui {
-        set $upstream "swagger-ui.staging.svc.cluster.local";
+        set $upstream "swagger-ui.staging.svc.cluster.local:8080";
         proxy_pass http://$upstream;
       }
       location /product {

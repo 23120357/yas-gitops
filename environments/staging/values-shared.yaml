@@ -1,3 +1,7 @@
 # Global shared values for staging
 global:
   # Add global variables here if needed
+
+extraEnvs:
+  - name: PGSSLMODE
+    value: "disable"
