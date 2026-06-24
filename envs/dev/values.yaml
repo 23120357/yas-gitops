@@ -1,2 +1,43 @@
-global:
-  imageTag: "v1.0.0"
+# Cấu hình values cho môi trường Dev
+
+# ----------------------------------------------------
+# Cách override Docker Registry & Image Tags của nhóm:
+# Nếu nhóm bạn dùng Docker Hub (ví dụ: minhthangzxc):
+# Bạn có thể uncomment và cập nhật các dòng tương ứng dưới đây:
+#
+# cart:
+#   backend:
+#     image:
+#       repository: minhthangzxc/yas-cart
+#       tag: latest
+# ----------------------------------------------------
+
+# override cấu hình chung cho swagger-ui (nếu cần)
+swagger-ui:
+  ingress:
+    enabled: true
+    host: api.yas.local.com
+    hosts:
+      - host: api.yas.local.com
+        paths:
+          - path: /swagger-ui
+            pathType: ImplementationSpecific
+
+# Cấu hình cụ thể cho từng microservice nếu có khác biệt
+yas-configuration:
+  # Cấu hình credential mặc định cho môi trường Dev
+  credentials:
+    postgresql:
+      username: yasadminuser
+      password: admin
+    elasticsearch:
+      username: yas
+      password: LarUmB3A49NTg9YmgW4=
+    keycloak:
+      backofficeBffClientSecret: TVacLC0cQ8tiiEKiTVerTb2YvwQ1TRJF
+      storefrontBffClientSecret: ZrU9I0q2uXBglBnmvyJdkl1lf0ncr8tn
+      customerManagementClientSecret: NKAr3rnjwm9jlakgKpelukZGFaHYqIWE
+    redis:
+      password: redis
+    openai:
+      apiKey: update-me-dev
