@@ -1,0 +1,550 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-yas-configuration
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/yas-configuration
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/yas-configuration.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-backoffice-bff
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/backoffice-bff
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/backoffice-bff.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-backoffice-ui
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/backoffice-ui
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/backoffice-ui.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-cart
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/cart
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/cart.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-customer
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/customer
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/customer.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-inventory
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/inventory
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/inventory.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-location
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/location
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/location.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-media
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/media
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/media.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-order
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/order
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/order.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-payment
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/payment
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/payment.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-payment-paypal
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/payment-paypal
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/payment-paypal.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-product
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/product
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/product.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-promotion
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/promotion
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/promotion.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-rating
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/rating
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/rating.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-recommendation
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/recommendation
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/recommendation.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-sampledata
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/sampledata
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/sampledata.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-search
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/search
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/search.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-storefront-bff
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/storefront-bff
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/storefront-bff.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-storefront-ui
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/storefront-ui
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/storefront-ui.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-tax
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/tax
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/tax.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-webhook
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/webhook
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/webhook.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-swagger-ui
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/swagger-ui
+    helm:
+      valueFiles:
+        - ../../environments/staging/values-shared.yaml
+        - ../../environments/staging/services/swagger-ui.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---

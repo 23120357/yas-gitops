@@ -1,0 +1,550 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-yas-configuration
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/yas-configuration
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/yas-configuration.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-backoffice-bff
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/backoffice-bff
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/backoffice-bff.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-backoffice-ui
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/backoffice-ui
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/backoffice-ui.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-cart
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/cart
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/cart.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-customer
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/customer
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/customer.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-inventory
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/inventory
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/inventory.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-location
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/location
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/location.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-media
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/media
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/media.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-order
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/order
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/order.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-payment
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/payment
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/payment.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-payment-paypal
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/payment-paypal
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/payment-paypal.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-product
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/product
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/product.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-promotion
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/promotion
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/promotion.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-rating
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/rating
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/rating.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-recommendation
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/recommendation
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/recommendation.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-sampledata
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/sampledata
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/sampledata.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-search
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/search
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/search.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-storefront-bff
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/storefront-bff
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/storefront-bff.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-storefront-ui
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/storefront-ui
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/storefront-ui.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-tax
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/tax
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/tax.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-webhook
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/webhook
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/webhook.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-swagger-ui
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/23120357/yas-gitops.git'
+    targetRevision: HEAD
+    path: charts/swagger-ui
+    helm:
+      valueFiles:
+        - ../../environments/dev/values-shared.yaml
+        - ../../environments/dev/services/swagger-ui.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
