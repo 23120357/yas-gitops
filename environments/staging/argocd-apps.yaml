@@ -247,31 +247,7 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: staging-payment-paypal
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: 'https://github.com/23120357/yas-gitops.git'
-    targetRevision: HEAD
-    path: charts/payment-paypal
-    helm:
-      valueFiles:
-        - ../../environments/staging/values-shared.yaml
-        - ../../environments/staging/services/payment-paypal.yaml
-  destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: staging
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
