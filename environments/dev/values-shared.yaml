@@ -2,6 +2,17 @@
 global:
   # Add global variables here if needed
 
-extraEnvs:
-  - name: PGSSLMODE
-    value: "disable"
+backend:
+  extraEnvs:
+    - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI
+      value: "http://34.142.221.97/realms/Yas"
+    - name: PGSSLMODE
+      value: "disable"
+  livenessProbe:
+    initialDelaySeconds: 120
+    failureThreshold: 30
+  readinessProbe:
+    initialDelaySeconds: 120
+    failureThreshold: 30
+
+
