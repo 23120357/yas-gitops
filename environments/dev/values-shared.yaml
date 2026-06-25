@@ -14,5 +14,9 @@ backend:
   readinessProbe:
     initialDelaySeconds: 120
     failureThreshold: 30
-
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0        # không tạo pod mới thêm
+      maxUnavailable: 1  # cho phép 1 pod down khi update
 
