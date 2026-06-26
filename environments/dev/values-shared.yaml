@@ -5,7 +5,7 @@ global:
 backend:
   extraEnvs:
     - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI
-      value: "http://34.142.221.97/realms/Yas"
+      value: "http://identity.yas.local.com/realms/Yas"
     - name: PGSSLMODE
       value: "disable"
   livenessProbe:
