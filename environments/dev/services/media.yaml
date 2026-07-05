@@ -1,1 +1,19 @@
 # Service specific overrides
+backend:
+  extraVolumes:
+    # 1. Giữ lại cấu hình volume configmap mặc định của media chart
+    - name: media-application
+      configMap:
+        name: media-application-configmap
+    # 2. Thêm volume PVC chứa ảnh
+    - name: media-images
+      persistentVolumeClaim:
+        claimName: media-images-pvc
+        
+  extraVolumeMounts:
+    # 1. Giữ lại mount configmap mặc định
+    - name: media-application
+      mountPath: /opt/yas/media
+    # 2. Mount PVC chứa ảnh vào đúng đường dẫn /images
+    - name: media-images
+      mountPath: /images

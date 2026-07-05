@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: media-seed-job
+  namespace: dev
+spec:
+  template:
+    spec:
+      containers:
+        - name: seed
+          image: alpine:latest # Sử dụng image Linux Alpine siêu nhẹ
+          command:
+            - sh
+            - -c
+            - |
+              # Cài đặt công cụ tải và giải nén
+              apk add --no-cache wget unzip
+              
+              # Tải mã nguồn nhánh main chứa thư mục ảnh mẫu từ GitHub
+              mkdir -p /tmp/download
+              wget -O /tmp/download/repo.zip https://github.com/minhthang2k5/Group_15_project_1_devops/archive/refs/heads/main.zip
+              
+              # Giải nén
+              unzip /tmp/download/repo.zip -d /tmp/download/
+              
+              # Tạo thư mục và copy ảnh mẫu vào PVC được mount tại /images
+              mkdir -p /images
+              cp -r /tmp/download/Group_15_project_1_devops-main/sampledata/images/sample /images/
+              
+              echo "Hoàn thành nạp ảnh mẫu vào PVC!"
+          volumeMounts:
+            - name: media-storage
+              mountPath: /images # Mount ổ đĩa PVC vào đường dẫn /images của Job
+      volumes:
+        - name: media-storage
+          persistentVolumeClaim:
+            claimName: media-images-pvc # Liên kết tới PVC đã tạo ở Bước 1
+      restartPolicy: Never
+  backoffLimit: 2
