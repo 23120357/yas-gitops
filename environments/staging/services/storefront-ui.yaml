@@ -1,1 +1,5 @@
-# Service specific overrides
+# Service specific overrides for staging
+ui:
+  extraEnvs:
+    - name: API_BASE_PATH
+      value: http://storefront.yas.staging.com/api

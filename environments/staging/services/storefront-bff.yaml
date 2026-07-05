@@ -1,1 +1,9 @@
-# Service specific overrides
+# Service specific overrides for staging
+backend:
+  ingress:
+    enabled: true
+    className: nginx
+    host: storefront.yas.staging.com
+    path: /
+    pathType: ImplementationSpecific
+

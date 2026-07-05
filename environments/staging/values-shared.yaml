@@ -1,22 +1,33 @@
 # Global shared values for staging
-global:
-  # Add global variables here if needed
+global: {}
 
 backend:
   extraEnvs:
     - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI
-      value: "http://34.142.221.97/realms/Yas"
+      value: "http://identity.yas.local.com/realms/Yas"
     - name: PGSSLMODE
       value: "disable"
+    - name: JAVA_TOOL_OPTIONS
+      value: "-XX:+UseSerialGC -Xmx256m -XX:TieredStopAtLevel=1"
+
+  resources:
+    requests:
+      memory: "384Mi"
+      cpu: "50m"
+    limits:
+      memory: "512Mi"
+
   livenessProbe:
     initialDelaySeconds: 120
     failureThreshold: 30
+
   readinessProbe:
     initialDelaySeconds: 120
     failureThreshold: 30
+
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 0        # không tạo pod mới thêm
-      maxUnavailable: 1  # cho phép 1 pod down khi update
+      maxSurge: 0
+      maxUnavailable: 1
 
