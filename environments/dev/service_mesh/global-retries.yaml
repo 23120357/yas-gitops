@@ -1,0 +1,186 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: cart-retry
+  namespace: dev
+spec:
+  hosts:
+  - cart
+  http:
+  - route:
+    - destination:
+        host: cart
+    retries:
+      attempts: 3
+      perTryTimeout: 2s
+      retryOn: 5xx,gateway-error,connect-failure,refused-stream
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: payment-retry
+  namespace: dev
+spec:
+  hosts:
+  - payment
+  http:
+  - route:
+    - destination:
+        host: payment
+    retries:
+      attempts: 3
+      perTryTimeout: 2s
+      retryOn: 5xx,gateway-error,connect-failure,refused-stream
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: order-retry
+  namespace: dev
+spec:
+  hosts:
+  - order
+  http:
+  - route:
+    - destination:
+        host: order
+    retries:
+      attempts: 3
+      perTryTimeout: 2s
+      retryOn: 5xx,gateway-error,connect-failure,refused-stream
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: rating-retry
+  namespace: dev
+spec:
+  hosts:
+  - rating
+  http:
+  - route:
+    - destination:
+        host: rating
+    retries:
+      attempts: 3
+      perTryTimeout: 2s
+      retryOn: 5xx,gateway-error,connect-failure,refused-stream
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: customer-retry
+  namespace: dev
+spec:
+  hosts:
+  - customer
+  http:
+  - route:
+    - destination:
+        host: customer
+    retries:
+      attempts: 3
+      perTryTimeout: 2s
+      retryOn: 5xx,gateway-error,connect-failure,refused-stream
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: location-retry
+  namespace: dev
+spec:
+  hosts:
+  - location
+  http:
+  - route:
+    - destination:
+        host: location
+    retries:
+      attempts: 3
+      perTryTimeout: 2s
+      retryOn: 5xx,gateway-error,connect-failure,refused-stream
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: inventory-retry
+  namespace: dev
+spec:
+  hosts:
+  - inventory
+  http:
+  - route:
+    - destination:
+        host: inventory
+    retries:
+      attempts: 3
+      perTryTimeout: 2s
+      retryOn: 5xx,gateway-error,connect-failure,refused-stream
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: tax-retry
+  namespace: dev
+spec:
+  hosts:
+  - tax
+  http:
+  - route:
+    - destination:
+        host: tax
+    retries:
+      attempts: 3
+      perTryTimeout: 2s
+      retryOn: 5xx,gateway-error,connect-failure,refused-stream
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: search-retry
+  namespace: dev
+spec:
+  hosts:
+  - search
+  http:
+  - route:
+    - destination:
+        host: search
+    retries:
+      attempts: 3
+      perTryTimeout: 2s
+      retryOn: 5xx,gateway-error,connect-failure,refused-stream
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: media-retry
+  namespace: dev
+spec:
+  hosts:
+  - media
+  http:
+  - route:
+    - destination:
+        host: media
+    retries:
+      attempts: 3
+      perTryTimeout: 2s
+      retryOn: 5xx,gateway-error,connect-failure,refused-stream
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: product-retry
+  namespace: dev
+spec:
+  hosts:
+  - product
+  http:
+  - route:
+    - destination:
+        host: product
+    retries:
+      attempts: 3
+      perTryTimeout: 2s
+      retryOn: 5xx,gateway-error,connect-failure,refused-stream

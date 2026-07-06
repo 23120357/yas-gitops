@@ -1,0 +1,59 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: httpbin-retry
+  namespace: dev
+spec:
+  hosts:
+  - httpbin
+  http:
+  - route:
+    - destination:
+        host: httpbin
+    retries:
+      attempts: 3
+      perTryTimeout: 2s
+      retryOn: 5xx,gateway-error,connect-failure,refused-stream
+---
+# httpbin: upstream service dùng để nhận request và trả lỗi giả lập
+apiVersion: v1
+kind: Pod
+metadata:
+  name: httpbin
+  namespace: dev
+  labels:
+    app: httpbin
+spec:
+  containers:
+  - name: httpbin
+    image: kennethreitz/httpbin
+    ports:
+    - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: httpbin
+  namespace: dev
+spec:
+  selector:
+    app: httpbin
+  ports:
+  - port: 80
+    targetPort: 80
+---
+# test-curl: caller pod dùng để gửi request từ trong mesh
+# Có Istio sidecar inject (2/2) → Envoy thực hiện retry
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-curl
+  namespace: dev
+  labels:
+    app: test-curl
+spec:
+  containers:
+  - name: curl
+    image: curlimages/curl:latest
+    command: ["sleep", "infinity"]
+  restartPolicy: Always
