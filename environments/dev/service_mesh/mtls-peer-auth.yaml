@@ -1,0 +1,47 @@
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default-mtls
+  namespace: dev
+spec:
+  mtls:
+    mode: STRICT
+---
+# nginx nhận traffic plain HTTP từ ingress-nginx (ngoài mesh)
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: nginx-exemption
+  namespace: dev
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  mtls:
+    mode: PERMISSIVE
+---
+# storefront-bff nhận traffic plain HTTP từ ingress-nginx (ngoài mesh)
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: storefront-bff-exemption
+  namespace: dev
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: storefront-bff
+  mtls:
+    mode: PERMISSIVE
+---
+# backoffice-bff nhận traffic plain HTTP từ ingress-nginx (ngoài mesh)
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: backoffice-bff-exemption
+  namespace: dev
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: backoffice-bff
+  mtls:
+    mode: PERMISSIVE
