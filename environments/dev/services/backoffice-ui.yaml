@@ -1,1 +1,5 @@
 # Service specific overrides
+ui:
+  image:
+    repository: docker.io/minhthangzxc/backoffice
+    tag: latest
