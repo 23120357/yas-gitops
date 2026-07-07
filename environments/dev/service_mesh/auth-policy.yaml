@@ -1,0 +1,52 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: storefront-bff-public
+  namespace: dev
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: storefront-bff
+  action: ALLOW
+  rules:
+    - {}
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: backoffice-bff-public
+  namespace: dev
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: backoffice-bff
+  action: ALLOW
+  rules:
+    - {}
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: auth-search
+  namespace: dev
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: search
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        principals: 
+        - "cluster.local/ns/dev/sa/product"
+        - "cluster.local/ns/dev/sa/storefront-bff"
+        - "cluster.local/ns/dev/sa/backoffice-bff"
+  - to:
+    - operation:
+        paths:
+        - "*/v3/api-docs"
+        - "/v3/api-docs"
+        - "/v3/api-docs/*"
+        - "/swagger-ui*"
+  - to:
+    - operation:
+        ports: ["8090"]
