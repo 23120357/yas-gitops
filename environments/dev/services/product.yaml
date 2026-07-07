@@ -1,1 +1,5 @@
 # Service specific overrides
+backend:
+  image:
+    repository: docker.io/minhthangzxc/product
+    tag: latest
