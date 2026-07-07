@@ -198,6 +198,20 @@ gatewayRoutesConfig:
                 filters:
                   - RewritePath=/api/(?<segment>.*), /$\{segment}
                   - TokenRelay=
+              - id: payment_api
+                uri: http://payment
+                predicates:
+                  - Path=/api/payment/**
+                filters:
+                  - RewritePath=/api/(?<segment>.*), /$\{segment}
+                  - TokenRelay=
+              - id: payment-paypal_api
+                uri: http://payment-paypal
+                predicates:
+                  - Path=/api/payment-paypal/**
+                filters:
+                  - RewritePath=/api/(?<segment>.*), /$\{segment}
+                  - TokenRelay=
               - id: ui
                 uri: ${UI_HOST}
                 predicates:
