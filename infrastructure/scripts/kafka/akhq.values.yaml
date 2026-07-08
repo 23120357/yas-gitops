@@ -1,0 +1,41 @@
+configuration:
+  akhq:
+    server:
+      access-log:
+        enabled: false
+        name: org.akhq.log.access
+    connections:
+      kafka-connection:
+        properties:
+          bootstrap.servers: kafka-cluster-kafka-bootstrap:9092
+        connect:
+          - name: debezium-connect-cluster
+            url: http://debezium-connect-cluster-connect-api:8083
+hostname: &hostname akhq.yas.local.com
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  annotations: {}
+  paths:
+    - /
+  hosts:
+    - *hostname
+  tls: []
+
+livenessProbe:
+  enabled: true
+  path: /health
+  port: management
+  initialDelaySeconds: 120
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+
+readinessProbe:
+  enabled: true
+  path: /health
+  port: management
+  initialDelaySeconds: 120
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
