@@ -1,4 +1,4 @@
 # Service specific overrides
 ui:
   image:
-    tag: "ca02d30"
+    tag: "4197242"
