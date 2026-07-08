@@ -6,13 +6,13 @@ opentelemetryCollectorConfig:
           endpoint: 0.0.0.0:4317
         http:
           endpoint: 0.0.0.0:4318
-    loki:
-      protocols:
-        http:
-          endpoint: 0.0.0.0:3500
-      use_incoming_timestamp: true
+    # loki:
+    #   protocols:
+    #     http:
+    #       endpoint: 0.0.0.0:3500
+    #   use_incoming_timestamp: true
   processors:
-    batch:
+    batch: {}
     attributes:
       actions:
         - action: insert
@@ -23,19 +23,30 @@ opentelemetryCollectorConfig:
           value: raw
 
   exporters:
-    logging:
-      verbosity: detailed
-    loki:
-      endpoint: http://loki-gateway/loki/api/v1/push
-    otlphttp:
-      endpoint: http://tempo:4318
+  # Thay thế logging bằng debug để không bị báo deprecated/crash
+    #logging:
+    debug:
+      #verbosity: detailed
+      verbosity: basic
+
+  # Sửa lại địa chỉ Service Loki phù hợp với bản cài SingleBinary 
+    otlp_http/loki:
+      #endpoint: http://loki-gateway/loki/api/v1/push
+      endpoint: http://loki.observability.svc.cluster.local:3100/loki/api/v1/push
+
+    otlp_http/tempo:
+      #endpoint: http://tempo:4318
+      endpoint: http://tempo.observability.svc.cluster.local:4318
   service:
     pipelines:
       logs:
-        receivers: [loki]
+        #receivers: [loki]
+        receivers: [otlp]          # Nhận log của ứng dụng qua giao thức OTLP
         processors: [attributes]
-        exporters: [loki]
+        #exporters: [loki]
+        exporters: [debug, otlp_http/loki]   # Đẩy log ra console để test và lưu vào Loki
+
       traces:
         receivers: [otlp]
         processors: [batch]
-        exporters: [otlphttp]
+        exporters: [otlp_http/tempo]

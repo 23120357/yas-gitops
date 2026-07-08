@@ -1,6 +1,7 @@
 config:
   clients:
-    - url: http://opentelemetry-collector:3500/loki/api/v1/push
+    #- url: http://opentelemetry-collector:3500/loki/api/v1/push
+    - url: http://loki.observability.svc.cluster.local:3100/loki/api/v1/push
   snippets:
     pipelineStages:
       - docker: {}

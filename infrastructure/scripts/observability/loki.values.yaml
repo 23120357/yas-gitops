@@ -1,19 +1,52 @@
+# Thiết lập chế độ chạy Monolithic (Single Binary) thay vì Distributed
+deploymentMode: SingleBinary
+
+# Chỉ định số lượng bản sao cho Single Binary là 1
+singleBinary:
+  replicas: 1
+  # Bật persistence để lưu trữ dữ liệu bền vững trên VM
+  persistence:
+    enabled: true
+    size: 5Gi
+
+# Tắt các replicas của chế độ cũ (Distributed)
 write:
-  replicas: 1
+  replicas: 0
 read:
-  replicas: 1
+  replicas: 0
 backend:
-  replicas: 1
+  replicas: 0
+
 loki:
   commonConfig:
     replication_factor: 1
   auth_enabled: false
+  
+  # Cấu hình lưu trữ kiểu filesystem dưới khóa loki
+  storage:
+    type: 'filesystem'
+    # BỔ SUNG: Khai báo rõ ràng thư mục nội bộ để Loki mapping dữ liệu xuống PV
+    filesystem:
+      chunks_directory: /var/loki/chunks
+      rules_directory: /var/loki/rules
+
+  # Khai báo schema_config sử dụng filesystem làm object_store
+  schemaConfig:
+    configs:
+      - from: "2024-04-01"
+        store: tsdb
+        object_store: filesystem
+        schema: v13
+        index:
+          prefix: loki_index_
+          period: 24h
+
 test:
   enabled: false
-storage:
-  type: 'filesystem'
+
+# Tắt hoàn toàn MinIO (không deploy cài thêm MinIO)
 minio:
-  enabled: true
+  enabled: false
 
 monitoring:
   selfMonitoring:
