@@ -1,1 +1,4 @@
 # Service specific overrides
+backend:
+  image:
+    tag: "dc026cb"
