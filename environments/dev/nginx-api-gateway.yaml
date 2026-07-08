@@ -7,7 +7,7 @@ data:
   default.conf: |
     server {
       listen 80;
-      server_name api.yas.local.com;
+      server_name api.yas.dev.com;
 
       # Kubernetes CoreDNS
       resolver kube-dns.kube-system.svc.cluster.local valid=10s;
@@ -130,7 +130,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: api.yas.local.com
+    - host: api.yas.dev.com
       http:
         paths:
           - path: /media

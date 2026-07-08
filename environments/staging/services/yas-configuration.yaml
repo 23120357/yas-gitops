@@ -13,3 +13,10 @@ credentials:
     password: redis
   openai:
     apiKey: update-me-staging
+mediaApplicationConfig:
+  yas:
+    publicUrl: http://api.yas.staging.com/media
+paymentPaypalApplicationConfig:
+  yas:
+    public:
+      url: http://storefront.yas.staging.com/complete-payment

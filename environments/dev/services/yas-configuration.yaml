@@ -13,3 +13,10 @@ credentials:
     password: redis
   openai:
     apiKey: update-me-dev
+mediaApplicationConfig:
+  yas:
+    publicUrl: http://api.yas.dev.com/media
+paymentPaypalApplicationConfig:
+  yas:
+    public:
+      url: http://storefront.yas.dev.com/complete-payment

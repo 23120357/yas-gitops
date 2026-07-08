@@ -526,7 +526,9 @@ spec:
         clientAuthenticatorType: client-secret
         secret: TVacLC0cQ8tiiEKiTVerTb2YvwQ1TRJF
         redirectUris:
-          - {{ .Values.backofficeRedirectUrl }}/*
+          - {{ .Values.backofficeRedirectUrl }}/*   # Môi trường local
+          - http://backoffice.yas.dev.com/*        # Môi trường dev
+          - http://backoffice.yas.staging.com/*    # Môi trường staging
           - http://localhost:3000/*
           - http://localhost:8087/*
         webOrigins: [ ]
@@ -820,7 +822,9 @@ spec:
         clientAuthenticatorType: client-secret
         secret: ZrU9I0q2uXBglBnmvyJdkl1lf0ncr8tn
         redirectUris:
-          - {{ .Values.storefrontRedirectUrl }}/*
+          - {{ .Values.storefrontRedirectUrl }}/*   # Môi trường local
+          - http://storefront.yas.dev.com/*        # Môi trường dev
+          - http://storefront.yas.staging.com/*    # Môi trường staging
           - http://localhost:8087/*
         webOrigins: [ ]
         notBefore: 0
@@ -934,6 +938,8 @@ spec:
         clientAuthenticatorType: client-secret
         redirectUris:
           - http://api.yas.local.com/*
+          - http://api.yas.dev.com/*          # Môi trường dev
+          - http://api.yas.staging.com/*      # Môi trường staging
           - http://localhost:8080/*
           - http://localhost:8081/*
           - http://localhost:8083/*
@@ -948,6 +954,8 @@ spec:
           - http://localhost:8093/*
         webOrigins:
           - http://api.yas.local.com
+          - http://api.yas.dev.com            # Môi trường dev
+          - http://api.yas.staging.com        # Môi trường staging
           - http://localhost:8080
           - http://localhost:8081
           - http://localhost:8083

@@ -1,4 +1,6 @@
 # Service specific overrides
 backend:
+  ingress:
+    host: storefront.yas.dev.com
   image:
     tag: "0ed74f1"
