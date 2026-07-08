@@ -1,4 +1,6 @@
 # Service specific overrides
 backend:
+  ingress:
+    host: backoffice.yas.local.com
   image:
     tag: "dc026cb"
