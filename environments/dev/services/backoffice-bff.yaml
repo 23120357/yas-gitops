@@ -3,4 +3,4 @@ backend:
   ingress:
     host: backoffice.yas.local.com
   image:
-    tag: "dc026cb"
+    tag: "ca02d30"

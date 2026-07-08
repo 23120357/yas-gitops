@@ -2,4 +2,4 @@
 ui:
   image:
     repository: docker.io/minhthangzxc/backoffice
-    tag: "dc026cb"
+    tag: "ca02d30"
