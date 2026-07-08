@@ -2,5 +2,12 @@
 backend:
   ingress:
     host: backoffice.yas.local.com
+  extraEnvs:
+    - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI
+      value: "http://identity.yas.local.com/realms/Yas"
+    - name: PGSSLMODE
+      value: "disable"
+    - name: UI_HOST
+      value: "http://backoffice-ui:3000"
   image:
     tag: "a42707d"
