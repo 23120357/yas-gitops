@@ -1,6 +1,6 @@
 backend:
   image:
-    repository: ghcr.io/nashtech-garage/yas-product
+    repository: docker.io/minhthangzxc/product
     tag: latest
 
   nameOverride: product
