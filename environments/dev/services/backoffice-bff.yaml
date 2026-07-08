@@ -10,4 +10,4 @@ backend:
     - name: UI_HOST
       value: "http://backoffice-ui:3000"
   image:
-    tag: "a42707d"
+    tag: "0ed74f1"

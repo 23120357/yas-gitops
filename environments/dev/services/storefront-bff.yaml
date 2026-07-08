@@ -1,4 +1,4 @@
 # Service specific overrides
 backend:
   image:
-    tag: "a42707d"
+    tag: "0ed74f1"
