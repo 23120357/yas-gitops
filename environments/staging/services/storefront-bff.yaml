@@ -2,3 +2,5 @@
 backend:
   ingress:
     host: storefront.yas.staging.com
+  image:
+    tag: v1.0.0
