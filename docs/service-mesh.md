@@ -15,15 +15,15 @@ Istio là một mã nguồn mở Service Mesh phổ biến nhất hiện nay, ho
 
 ```mermaid
 graph TD
-    subgraph Control Plane
+    subgraph ControlPlane["Control Plane"]
         Istiod[Istiod: Quản lý Cấu hình & CA]
     end
 
-    subgraph Pod A (Client)
+    subgraph PodA["Pod A (Client)"]
         AppA[Ứng dụng A] <--> |Plaintext localhost| EnvoyA[Envoy Sidecar A]
     end
 
-    subgraph Pod B (Server)
+    subgraph PodB["Pod B (Server)"]
         AppB[Ứng dụng B] <--> |Plaintext localhost| EnvoyB[Envoy Sidecar B]
     end
 
@@ -72,10 +72,10 @@ Chúng ta sử dụng một Client Pod trong mesh là `test-curl` để gọi t�
 
 ```mermaid
 sequenceDiagram
-    participant User as test-curl App
-    participant EnvoyClient as Envoy Sidecar (test-curl)
-    participant EnvoyServer as Envoy Sidecar (httpbin)
-    participant Httpbin as httpbin App
+    participant User as "test-curl App"
+    participant EnvoyClient as "Envoy Sidecar (test-curl)"
+    participant EnvoyServer as "Envoy Sidecar (httpbin)"
+    participant Httpbin as "httpbin App"
 
     User->>EnvoyClient: Gọi http://httpbin/status/500
     
