@@ -38,6 +38,9 @@ ArgoCD giám sát các thay đổi trong repository `yas-gitops` và tự độn
 
 Grafana là công cụ phân tích tập trung kết nối dữ liệu từ **Loki** (Log) và **Tempo** (Trace/Truy vết cuộc gọi).
 
+> [!TIP]
+> Để hiểu sâu hơn về mặt khái niệm (Metrics, Logs, Traces), ngôn ngữ truy vấn (LogQL, PromQL, TraceQL) và cấu hình hạ tầng OpenTelemetry chi tiết của hệ thống YAS, hãy tham khảo tài liệu [Giám Sát Toàn Diện (Observability Guide)](observability.md).
+
 ### 2.1. Tra Cứu Log Tập Trung Với Loki
 1. Truy cập [http://grafana.yas.local.com](http://grafana.yas.local.com).
 2. Chọn menu **Explore** từ thanh công cụ bên trái (biểu tượng la bàn).

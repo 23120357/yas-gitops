@@ -29,6 +29,9 @@ Hãy lựa chọn tài liệu phù hợp với nhu cầu của bạn dưới đ�
   * **Kiali:** Quan sát topology mạng lưới Service Mesh trực quan.
   * **pgAdmin, AKHQ, Keycloak, Kibana:** Quản trị các thành phần cơ sở dữ liệu, message queue, bảo mật và logging thô.
 
+### 6. 👁️ [Giám Sát Toàn Diện (Observability)](observability.md)
+* **Nội dung:** Hướng dẫn chi tiết lý thuyết, khái niệm và cách sử dụng bộ ba giám sát Prometheus (Metrics), Loki (Logs) và Tempo (Traces) trên giao diện `grafana.yas.local.com` cùng kỹ thuật liên kết log-to-trace (correlation) để gỡ lỗi.
+
 ---
 > [!NOTE]
 > Tất cả các tài liệu được viết bằng định dạng Markdown tiêu chuẩn, hỗ trợ sơ đồ trực quan (Mermaid) và liên kết chéo tiện dụng. Nếu bạn gặp bất kỳ vấn đề gì trong quá trình cài đặt hoặc vận hành, vui lòng tham khảo [Hướng Dẫn Cài Đặt & Chạy Thử](setup-guide.md) trước tiên.
