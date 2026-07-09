@@ -37,6 +37,36 @@ graph TD
 2. **Security (Bảo mật Zero Trust):** Tự động mã hóa lưu lượng mạng nội bộ bằng mTLS, quản lý chứng chỉ số và phân quyền chi tiết (Authorization Policy).
 3. **Observability (Khả năng quan sát):** Tự động đo lường phân tán (Distributed Tracing), thu thập metrics dịch vụ và log truy cập mạng.
 
+### 1.3. Sơ đồ Luồng Giao Tiếp (Topology) của YAS trong Service Mesh
+Dưới đây là mô hình phân luồng traffic từ ngoài vào trong hệ thống vi dịch vụ YAS khi được nhúng trong Istio Service Mesh:
+
+```mermaid
+graph TD
+    Client[Người dùng / Trình duyệt] -->|HTTP| Ingress[Ingress Nginx Controller]
+    
+    subgraph Mesh["Istio Service Mesh (Namespace: dev)"]
+        Ingress -->|Plain HTTP - Permissive mTLS| Nginx[NGINX API Gateway]
+        
+        Nginx -->|Plain HTTP - Permissive mTLS| SF_BFF[storefront-bff]
+        Nginx -->|Plain HTTP - Permissive mTLS| BO_BFF[backoffice-bff]
+        
+        SF_BFF ==>|Strict mTLS| Product[product service]
+        SF_BFF ==>|Strict mTLS| Cart[cart service]
+        SF_BFF ==>|Strict mTLS| Search[search service]
+        
+        BO_BFF ==>|Strict mTLS| Product
+        BO_BFF ==>|Strict mTLS| Search
+        BO_BFF ==>|Strict mTLS| Customer[customer service]
+        
+        Product ==>|Strict mTLS| Search
+    end
+
+    classDef permissive fill:#f9f,stroke:#333,stroke-width:1px,stroke-dasharray: 5 5;
+    classDef strict fill:#bbf,stroke:#333,stroke-width:2px;
+    class Nginx,SF_BFF,BO_BFF permissive;
+    class Product,Cart,Search,Customer strict;
+```
+
 ---
 
 ## 2. Cấu Hình Istio Trong Hệ Thống YAS
@@ -137,3 +167,55 @@ kubectl logs -n dev httpbin -c istio-proxy --tail=20 | grep "GET /status/500"
 ```
 > [!IMPORTANT]
 > **Dấu hiệu thành công:** Log của `httpbin` Envoy sẽ hiển thị chính xác **4 dòng log** yêu cầu truy cập `GET /status/500` có cùng một giá trị `X-Request-Id` được ghi nhận gần như đồng thời. Điều này chứng minh 1 request bị lỗi từ phía ứng dụng client đã được hạ tầng Envoy tự động nhân lên làm 4 lần thử trước khi từ bỏ.
+
+---
+
+## 4. Thực Hành Kiểm Thử Quyền Truy Cập (Authorization Policy)
+
+Để kiểm chứng tính năng phân quyền truyền thông mạng Zero Trust (`AuthorizationPolicy`), chúng ta giả lập tình huống chỉ cho phép Pod mang Service Account được ủy quyền gọi sang service `search`, đồng thời chặn mọi truy cập từ các Pod không được phép.
+
+### Kịch bản thử nghiệm
+- **Pod được cho phép (`authz-allowed`):** Chạy dưới ServiceAccount `storefront-bff`. Theo cấu hình `auth-policy.yaml`, service account này được phép gọi tới service `search`.
+- **Pod bị chặn (`authz-denied`):** Chạy dưới ServiceAccount `default`. Service account này không nằm trong danh sách trắng nên kết nối sẽ bị chặn và trả về lỗi 403 Forbidden.
+
+### Các bước thực hiện:
+
+#### Bước 1: Deploy tài nguyên Pod kiểm thử
+Triển khai hai Pod kiểm thử mang cấu hình Service Account tương ứng vào namespace `dev`:
+```bash
+kubectl apply -f environments/dev/service_mesh/authz-test.yaml
+```
+
+#### Bước 2: Kiểm tra cuộc gọi từ Pod được phép (Thành công)
+Sử dụng Pod `authz-allowed` để gửi yêu cầu lấy tài liệu API của service `search` trên cổng `8090`:
+```bash
+kubectl exec -n dev authz-allowed -c curl -- curl -s -w "\nHTTP Code: %{http_code}\n" http://search:8090/v3/api-docs
+```
+> [!IMPORTANT]
+> **Kết quả kỳ vọng:**
+> - HTTP Code: **`200`** (hoặc nội dung file cấu hình Swagger JSON).
+> - Điều này chứng minh Pod mang Service Account được cấu hình trong whitelist có thể đi qua sidecar và kết nối thành công.
+
+#### Bước 3: Kiểm tra cuộc gọi từ Pod KHÔNG được phép (Bị chặn)
+Sử dụng Pod `authz-denied` để gửi yêu cầu tương tự tới service `search`:
+```bash
+kubectl exec -n dev authz-denied -c curl -- curl -s -w "\nHTTP Code: %{http_code}\n" http://search:8090/v3/api-docs
+```
+> [!IMPORTANT]
+> **Kết quả kỳ vọng:**
+> - Nội dung phản hồi: **`RBAC: access denied`**
+> - HTTP Code: **`403`**
+> - Điều này chứng minh Istio Authorization Policy đã hoạt động chính xác, tự động chặn đứng kết nối từ client không hợp lệ ngay tại tầng sidecar proxy nhận (Envoy của search) trước khi chạm tới code ứng dụng.
+
+---
+
+## 5. Quan Sát Mô Hình Mạng Và mTLS Trên Kiali
+
+Sau khi triển khai các chính sách trên, bạn có thể kiểm chứng trực quan bằng Kiali:
+1. Mở trang Kiali: `http://localhost:20001`
+2. Chọn mục **Graph**, chọn namespace `dev`.
+3. Gửi traffic thử nghiệm (ví dụ: truy cập web storefront hoặc chạy các lệnh curl kiểm thử ở trên).
+4. Tại góc dưới bên trái, trong cài đặt **Display**, bật **Security** và **Traffic Animation**.
+5. **Quan sát:**
+   - Bạn sẽ nhìn thấy **Biểu tượng ổ khóa (Padlock)** hiển thị trên các đường liên kết giữa các node (ví dụ: từ `storefront-bff` tới `product`), xác nhận đường truyền đang được mã hóa **strict mTLS**.
+   - Các node không có ổ khóa (ví dụ: từ Ingress vào Nginx API Gateway) phản ánh đúng chế độ **permissive mTLS**.
