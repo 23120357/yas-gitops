@@ -16,10 +16,13 @@ Hãy lựa chọn tài liệu phù hợp với nhu cầu của bạn dưới đ�
 ### 2. 🚀 [Hướng Dẫn Cài Đặt & Chạy Thử](setup-guide.md)
 * **Nội dung:** Hướng dẫn chi tiết từng bước chuẩn bị môi trường Minikube (Ram, Disk), cấu hình Ingress, các lệnh shell setup hệ thống cơ sở dữ liệu hạ tầng (Postgres, Kafka, Elasticsearch, Keycloak) và deploy ứng dụng YAS. Hướng dẫn thiết lập `/etc/hosts` chia tách rạch ròi cho 3 phân vùng domain (`yas.local.com`, `yas.dev.com`, `yas.staging.com`).
 
-### 3. 🕸️ [Lý Thuyết & Thực Hành Istio Service Mesh](service-mesh.md)
+### 3. 🐙 [Quản Lý GitOps Với ArgoCD](argocd-gitops.md)
+* **Nội dung:** Nguyên lý vận hành GitOps và vai trò của ArgoCD. Kiến trúc mẫu **App-of-Apps Pattern** triển khai hệ thống vi dịch vụ, mô tả chi tiết sơ đồ thư mục cấu hình và quy trình tự động đồng bộ mã nguồn Docker qua Jenkins. Hướng dẫn CLI quản lý, kiểm tra trạng thái và Rollback ứng dụng.
+
+### 4. 🕸️ [Lý Thuyết & Thực Hành Istio Service Mesh](service-mesh.md)
 * **Nội dung:** Giải thích lý thuyết Service Mesh (Sidecar, mTLS, Traffic Routing, Authorization). Chi tiết cách cấu hình Istio trong hệ thống (`PeerAuthentication`, `AuthorizationPolicy`, `VirtualService`) và quy trình kiểm thử thực tế cơ chế tự động thử lại (Retry) khi backend gặp lỗi.
 
-### 4. 📊 [Hướng Dẫn Sử Dụng Các Dashboard Giám Sát](dashboards-guide.md)
+### 5. 📊 [Hướng Dẫn Sử Dụng Các Dashboard Giám Sát](dashboards-guide.md)
 * **Nội dung:** Cách truy cập, xem và sử dụng các Dashboard tương ứng để kiểm tra sức khỏe hệ thống:
   * **ArgoCD:** Quản lý vòng đời ứng dụng GitOps.
   * **Grafana (Loki & Tempo):** Phân tích log tập trung và truy vết phân tán (Distributed Tracing), kỹ thuật liên kết vết log sang đồ thị span node graph.
