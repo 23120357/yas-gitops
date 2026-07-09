@@ -4,10 +4,15 @@ metadata:
   name: opentelemetry
 spec:
   mode: deployment
+  image: otel/opentelemetry-collector-contrib:0.98.0
   ports:
     - name: loki
       port: 3500
       protocol: TCP
       targetPort: 3500
+    - name: prometheus
+      port: 8889
+      protocol: TCP
+      targetPort: 8889
   config: |
     {{ toYaml .Values.opentelemetryCollectorConfig | nindent 4 }}

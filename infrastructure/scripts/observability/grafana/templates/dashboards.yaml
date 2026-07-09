@@ -23,3 +23,16 @@ spec:
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: otel-jvm-dashboard
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  url: "https://grafana.com/api/dashboards/18812/revisions/4/download"
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS

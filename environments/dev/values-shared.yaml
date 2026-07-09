@@ -3,6 +3,8 @@ global:
   # Add global variables here if needed
 
 backend:
+  podAnnotations:
+    instrumentation.opentelemetry.io/inject-java: "true"
   extraEnvs:
     - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI
       value: "http://identity.yas.local.com/realms/Yas"

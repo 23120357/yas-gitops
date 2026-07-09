@@ -28,25 +28,35 @@ opentelemetryCollectorConfig:
     debug:
       #verbosity: detailed
       verbosity: basic
+    prometheus:
+      endpoint: 0.0.0.0:8889
 
   # Sửa lại địa chỉ Service Loki phù hợp với bản cài SingleBinary 
-    otlp_http/loki:
+    otlphttp/loki:
       #endpoint: http://loki-gateway/loki/api/v1/push
       endpoint: http://loki.observability.svc.cluster.local:3100/loki/api/v1/push
 
-    otlp_http/tempo:
+    otlphttp/tempo:
       #endpoint: http://tempo:4318
       endpoint: http://tempo.observability.svc.cluster.local:4318
   service:
+    telemetry:
+      metrics:
+        address: "0.0.0.0:8885"
     pipelines:
       logs:
         #receivers: [loki]
         receivers: [otlp]          # Nhận log của ứng dụng qua giao thức OTLP
         processors: [attributes]
         #exporters: [loki]
-        exporters: [debug, otlp_http/loki]   # Đẩy log ra console để test và lưu vào Loki
+        exporters: [debug, otlphttp/loki]   # Đẩy log ra console để test và lưu vào Loki
 
       traces:
         receivers: [otlp]
         processors: [batch]
-        exporters: [otlp_http/tempo]
+        exporters: [otlphttp/tempo]
+
+      metrics:
+        receivers: [otlp]
+        processors: [batch]
+        exporters: [prometheus]
