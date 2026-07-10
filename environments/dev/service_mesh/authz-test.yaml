@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: authz-allowed
+  namespace: dev
+  annotations:
+    sidecar.istio.io/inject: "true"
+spec:
+  serviceAccountName: storefront-bff
+  restartPolicy: Never
+  containers:
+  - name: curl
+    image: curlimages/curl:8.10.1
+    command: ["sh", "-c", "sleep 3600"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: authz-denied
+  namespace: dev
+  annotations:
+    sidecar.istio.io/inject: "true"
+spec:
+  serviceAccountName: default
+  restartPolicy: Never
+  containers:
+  - name: curl
+    image: curlimages/curl:8.10.1
+    command: ["sh", "-c", "sleep 3600"]
