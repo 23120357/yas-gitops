@@ -17,6 +17,6 @@ spec:
       maxLines: 1000
       derivedFields:
         - datasourceUid: tempo
-          matcherRegex: traceId=(\w*)
-          name: traceId
+          matcherRegex: trace_id=([a-f0-9]{32})
+          name: trace_id
           url: ${__value.raw}
