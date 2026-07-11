@@ -17,7 +17,7 @@ opentelemetryCollectorConfig:
       actions:
         - action: insert
           key: loki.attribute.labels
-          value: namespace,container,pod,level,traceId
+          value: namespace,container,pod,level,trace_id
         - action: insert
           key: loki.format
           value: raw
@@ -34,7 +34,8 @@ opentelemetryCollectorConfig:
   # Sửa lại địa chỉ Service Loki phù hợp với bản cài SingleBinary 
     otlphttp/loki:
       #endpoint: http://loki-gateway/loki/api/v1/push
-      endpoint: http://loki.observability.svc.cluster.local:3100/loki/api/v1/push
+      # endpoint: http://loki.observability.svc.cluster.local:3100/loki/api/v1/push
+      endpoint: http://loki.observability.svc.cluster.local:3100/otlp
 
     otlphttp/tempo:
       #endpoint: http://tempo:4318
