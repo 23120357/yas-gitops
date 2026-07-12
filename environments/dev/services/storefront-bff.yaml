@@ -3,4 +3,4 @@ backend:
   ingress:
     host: storefront.yas.dev.com
   image:
-    tag: "1173706"
+    tag: "dcf34b8"
